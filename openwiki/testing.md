@@ -1,3 +1,9 @@
+---
+type: "Reference"
+title: "Testing"
+openwiki_generated: true
+---
+
 # Testing
 
 The test tree suggests a mix of controller integration tests, repository tests, utility tests, and architecture rules.

@@ -1,3 +1,9 @@
+---
+type: "Reference"
+title: "OpenWiki quickstart"
+openwiki_generated: true
+---
+
 # OpenWiki quickstart
 
 ArDoCo REST is a Spring Boot REST API that runs ArDoCo trace-link recovery pipelines behind HTTP endpoints. It accepts multipart uploads, converts them to temporary files, starts the relevant runner, stores results in Redis, and exposes Swagger UI plus actuator endpoints for inspection.
