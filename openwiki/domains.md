@@ -1,3 +1,9 @@
+---
+type: "Reference"
+title: "Domains"
+openwiki_generated: true
+---
+
 # Domains
 
 This repository exposes several closely related trace-link recovery workflows. The business domain is ArDoCo-based recovery and inconsistency detection for software artifacts.

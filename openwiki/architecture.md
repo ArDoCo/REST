@@ -1,3 +1,9 @@
+---
+type: "Reference"
+title: "Architecture"
+openwiki_generated: true
+---
+
 # Architecture
 
 ArDoCo REST is a layered Spring Boot application built around a consistent controller → service → repository flow.

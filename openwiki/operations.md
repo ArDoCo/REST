@@ -1,3 +1,9 @@
+---
+type: "Reference"
+title: "Operations"
+openwiki_generated: true
+---
+
 # Operations
 
 ## Local setup
@@ -32,19 +38,23 @@ The repository includes:
 
 ## CI and automation
 
-`.github/workflows/openwiki.yml` shows the docs automation, and the project history indicates Maven-based CI. The workflow file also confirms the repo expects a working `openwiki` CLI in automation.
+The repository runs Maven-based CI through `.github/workflows/ci.yml`, which builds with Java 21 and `mvn verify` against a Redis service container. `.github/workflows/docker.yml` publishes the container image through the shared reusable workflow in `ardoco/actions`.
+
+`.github/workflows/openwiki.yml` drives the automated documentation update. It no longer contains the update logic inline; instead it delegates to the shared reusable workflow `ardoco/actions/.github/workflows/openwiki.yml@main`, which performs checkout, change detection, the `openwiki` CLI run, and pull-request creation. The schedule runs weekly, Monday 06:00 UTC, and can also be triggered manually via `workflow_dispatch`.
 
 ## Build and dependency notes
 
 `pom.xml` shows the operational stack:
 
-- Spring Boot 4.0.6 BOM
+- Spring Boot 4.0.6 BOM (imported in `dependencyManagement`)
 - Spring Web, Actuator, Data Redis, and Data JPA starters
 - Springdoc OpenAPI
 - Jedis as the Redis client
 - Testcontainers for integration-style verification
 
 The application class excludes data source auto-configuration, which matches the Redis-backed runtime.
+
+The parent POM is `io.github.ardoco:parent` at `2.1.0-SNAPSHOT`. Because Spring Boot 4.0.6 pulls JUnit 6.0.3, which the inherited parent POM does not provide, `pom.xml` overrides `<junit.version>` to `6.0.3` and declares explicit `junit-jupiter-api`, `junit-jupiter-engine`, and `junit-jupiter-params` dependencies pinned to `${junit.version}` so the Spring Boot-managed JUnit versions win.
 
 ## Change watch-outs
 
@@ -59,4 +69,6 @@ The application class excludes data source auto-configuration, which matches the
 - `pom.xml`
 - `docker-compose-template.yaml`
 - `Dockerfile`
+- `.github/workflows/ci.yml`
+- `.github/workflows/docker.yml`
 - `.github/workflows/openwiki.yml`
